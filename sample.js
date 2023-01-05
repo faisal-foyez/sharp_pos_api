@@ -1,0 +1,19 @@
+public string Id { get; set; }
+        public decimal Sequence { get; set; }
+        public string Code { get; set; }
+        public string ExpenseName { get; set; }
+        public int CompanyId { get; set; }
+        public int BranchId { get; set; }
+        public string ExpenditureCategoryId { get; set; }
+        public string ExpenditureSubCategoryId { get; set; }
+        public string ExpenditureSubsidiaryCategoryId { get; set; }
+        public DateTime ExpenseDate { get; set; }
+        public decimal ExpenseAmount { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsArchive { get; set; }
+        public bool IsSynchronized { get; set; }
+        public bool IsUpdated { get; set; }
+        public bool IsOffline { get; set; }
+        public string SynchronizationType { get; set; }
+        public string Comment { get; set; }
+        public bool IsPosted { get; set; }
