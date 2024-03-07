@@ -12,7 +12,6 @@ exports.getOne = async (id, Entity) => {
     return entity;
 }
 
-
 //GET ENTITIES BY QUERY
 exports.getByQuery = async (query, Entity) => {
     const entities = await Entity.find(query);

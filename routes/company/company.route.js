@@ -2,69 +2,49 @@ const express = require('express');
 const {services } = require('../../services/company/company.service.js');
 const router = express.Router();
 const {routeServices,upload} = require('../RouteServices');
-
+const {
+    getAllCopnanies,
+    getCompaniesByQuery,
+    searchByQuery,
+    getCompaniesCount,
+    getSingleCompany,
+    getCompaniesByPage,
+    addSingleCompany,
+    updateSingleCompany,
+    deleteSingleCompany
+} = require('../../controllers/company/company.controller.js');
 const RouteServices = routeServices(services);
 const populateCollections = {
     docs: ['category'],
     fields: ["name"]
 }
 //GET ALL COMPANIES
-router.get('/', async (req,res)=>{
-    RouteServices.getAll(req,res);
-});
+router.get('/', getAllCopnanies);
 
 //GET BY QUERY
-router.get('/query', async (req, res) => {
-    const data = req.query;
-    const fields = data.fields;
-    const query = JSON.parse(data.query);
-    req.body = {
-        fields,
-        query
-    }
-    RouteServices.getFieldsByQuery(req, res);
-});
+router.get('/query', getCompaniesByQuery);
 
 //SEARCH BY ORQUERY
-router.get('/search', async (req, res) => {
-    req.body = { ...populateCollections };
-    RouteServices.getBySearch(req, res);
-});
+router.get('/search', searchByQuery);
 
 //GET COUNTS
-router.get('/count', async (req, res) => {
-    console.log('company count');
-    RouteServices.count(req, res);
-})
+router.get('/count', getCompaniesCount)
 
 //GET SINGLE COMPANY BY ID
-router.get('/:id', async (req,res)=>{
-    RouteServices.getOne(req,res)
-})
+router.get('/:id', getSingleCompany)
 
 // GET COMPANIES BY PAGE
-router.get('/:pageSize/:pageNo', async (req, res) => {
-    req.body = {
-        ...populateCollections
-    }
-    RouteServices.getByPage(req,res);
-})
+router.get('/:pageSize/:pageNo', getCompaniesByPage)
 
 
 
 //ADD SINGLE COMPANY
-router.post('/', upload.any(), async (req,res)=>{
-    RouteServices.addOne(req,res);
-})
+router.post('/', upload.any(), addSingleCompany)
 
 //UPDATE SINGLE COMPANY
-router.put('/:id', upload.any(), async (req, res) => {
-    RouteServices.updateOne(req,res);
-})
+router.put('/:id', upload.any(), updateSingleCompany)
 
 //DELETE SINGLE COMPANY
-router.delete('/:id',async (req,res)=>{
-    RouteServices.deleteOne(req,res);
-})
+router.delete('/:id', deleteSingleCompany)
 
 module.exports = router;

@@ -8,13 +8,14 @@ const populateCollections = {
     docs: ['category'],
     fields: ["name"]
 }
+
 //GET ALL COMPANIES
-router.get('/', async (req,res)=>{
+const getAllCopnanies =  async (req,res)=>{
     RouteServices.getAll(req,res);
-});
+};
 
 //GET BY QUERY
-router.get('/query', async (req, res) => {
+const getCompaniesByQuery = async (req, res) => {
     const data = req.query;
     const fields = data.fields;
     const query = JSON.parse(data.query);
@@ -23,48 +24,56 @@ router.get('/query', async (req, res) => {
         query
     }
     RouteServices.getFieldsByQuery(req, res);
-});
+};
 
 //SEARCH BY ORQUERY
-router.get('/search', async (req, res) => {
+const searchByQuery = async (req, res) => {
     req.body = { ...populateCollections };
     RouteServices.getBySearch(req, res);
-});
+};
 
 //GET COUNTS
-router.get('/count', async (req, res) => {
+const getCompaniesCount = async (req, res) => {
     console.log('company count');
     RouteServices.count(req, res);
-})
+}
 
 //GET SINGLE COMPANY BY ID
-router.get('/:id', async (req,res)=>{
+const getSingleCompany = async (req,res)=>{
     RouteServices.getOne(req,res)
-})
+}
 
 // GET COMPANIES BY PAGE
-router.get('/:pageSize/:pageNo', async (req, res) => {
+const getCompaniesByPage = async (req, res) => {
     req.body = {
         ...populateCollections
     }
     RouteServices.getByPage(req,res);
-})
-
-
+}
 
 //ADD SINGLE COMPANY
-router.post('/', upload.any(), async (req,res)=>{
+const addSingleCompany = async (req,res)=>{
     RouteServices.addOne(req,res);
-})
+}
 
 //UPDATE SINGLE COMPANY
-router.put('/:id', upload.any(), async (req, res) => {
+const updateSingleCompany = async (req, res) => {
     RouteServices.updateOne(req,res);
-})
+}
 
 //DELETE SINGLE COMPANY
-router.delete('/:id',async (req,res)=>{
+const deleteSingleCompany = async (req,res)=>{
     RouteServices.deleteOne(req,res);
-})
+}
 
-module.exports = router;
+module.exports = {
+    getAllCopnanies,
+    getCompaniesByQuery,
+    searchByQuery,
+    getCompaniesCount,
+    getSingleCompany,
+    getCompaniesByPage,
+    addSingleCompany,
+    updateSingleCompany,
+    deleteSingleCompany
+};
